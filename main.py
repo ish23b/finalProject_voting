@@ -1,7 +1,7 @@
 from gui import *
 
 
-def main():
+def main() -> None:
 
     with open('election_results.csv', 'w', newline='') as output_csv_file:
         voting_csv_writer = csv.writer(output_csv_file)
