@@ -63,23 +63,28 @@ class GUI:
     # displays the final output
     # returns no value
     def submit(self):
-        id = self.entry_voterID.get().strip()
-        choice_int = self.radioStorage_select.get()
-        if choice_int == 1:
-            self.cnt_jane += 1
-            choice_str = "Jane"
-        elif choice_int == 2:
-            self.cnt_john += 1
-            choice_str = "John"
+        try:
+            id = int(self.entry_voterID.get().strip())
+            choice_int = self.radioStorage_select.get()
+            if choice_int == 1:
+                self.cnt_jane += 1
+                choice_str = "Jane"
+            elif choice_int == 2:
+                self.cnt_john += 1
+                choice_str = "John"
 
-        outrow = [id, choice_str, self.cnt_jane, self.cnt_john]
-        with open('election_results.csv', 'a', newline='') as output_csv_file:
-            content = csv.writer(output_csv_file)
-            content.writerow(outrow)
+            outrow = [id, choice_str, self.cnt_jane, self.cnt_john]
+            with open('election_results.csv', 'a', newline='') as output_csv_file:
+                content = csv.writer(output_csv_file)
+                content.writerow(outrow)
 
-        self.label_instr.config(text="Thank you for your vote.")
-        self.label_instr2.config(text="Click 'refresh' for the next voter.")
-        self.frame_refresh.pack(pady=12)
+            self.label_instr.config(text="Thank you for your vote.")
+            self.label_instr2.config(text="Click 'refresh' for the next voter.")
+            self.frame_refresh.pack(pady=12)
+
+        except:
+            self.label_instr.config(text="Enter correct voter ID.")
+            self.entry_voterID.delete(0, END)
 
     def reset(self):
         self.label_instr.config(text="")
